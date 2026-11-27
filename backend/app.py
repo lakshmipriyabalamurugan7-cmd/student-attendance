@@ -1,4 +1,5 @@
 
+import os
 from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 import mysql.connector
@@ -10,10 +11,11 @@ CORS(app)
 # MySQL Database Connection
 def get_db_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="Priya@2026",
-        database="student_attendance"
+        host=os.getenv("MYSQLHOST", "localhost"),
+        port=int(os.getenv("MYSQLPORT", "3306")),
+        user=os.getenv("MYSQLUSER", "root"),
+        password=os.getenv("MYSQLPASSWORD", "Priya@2026"),
+        database=os.getenv("MYSQLDATABASE", "student_attendance")
     )
 
 
